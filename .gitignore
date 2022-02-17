@@ -1,0 +1,5 @@
+/.idea/
+*.iml
+/OnlineShop_parent/consoleApp/target/
+/OnlineShop_parent/store/target/
+/OnlineShop_parent/doman/target/

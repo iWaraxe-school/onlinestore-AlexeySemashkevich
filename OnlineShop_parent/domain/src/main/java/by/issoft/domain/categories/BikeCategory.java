@@ -1,4 +1,12 @@
 package by.issoft.domain.categories;
 
-public class BikeCategory extends Category{
+import by.issoft.domain.Category;
+
+public class BikeCategory extends Category {
+
+    public BikeCategory(String name) {
+        this.categoryName = "Bike";
+    }
+
+
 }
