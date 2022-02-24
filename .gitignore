@@ -1,10 +1,4 @@
 /.idea/
 *.iml
-/OnlineShop_parent/consoleApp/target/
-/OnlineShop_parent/store/target/
-/OnlineShop_parent/doman/target/
-/OnlineShop_parent/domain/target/classes/by/issoft/domain/categories/BikeCategory.class
-/OnlineShop_parent/domain/target/classes/by/issoft/domain/Category.class
-/OnlineShop_parent/domain/target/classes/by/issoft/domain/categories/MilkCategory.class
-/OnlineShop_parent/domain/target/classes/by/issoft/domain/categories/PhoneCategory.class
-/OnlineShop_parent/domain/target/classes/by/issoft/domain/Product.class
+target/
+

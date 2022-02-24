@@ -3,9 +3,9 @@ package by.issoft.domain;
 
 public class Product {
 
-    public String name;
-    public double rate;
-    public double price;
+    private String name;
+    private double rate;
+    private double price;
 
     public Product(String name, double rate, double price) {
         this.name = name;
