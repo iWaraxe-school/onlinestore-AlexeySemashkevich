@@ -6,24 +6,20 @@ public class RandomStorePopulator {
 
     private Faker faker = new Faker();
 
-    public RandomStorePopulator() {
-    }
+    public RandomStorePopulator() {}
 
-    public String getProductName(String categoryName) {
-        switch (categoryName) {
-            case "Bike":
+    public String getProductName(String valueOf) {
+        switch (getClass().getSimpleName()) {
+            case "BikeCategory":
                 return faker.aviation().aircraft();
-            case "Phone" :
+            case "PhoneCategory" :
                 return faker.company().name();
-            case "Milk" :
+            case "MilkCategory" :
                 return faker.beer().name();
             default: return null;
-
         }
     }
     public Double getPrice() {return faker.number().randomDouble(2,1,10_000);}
     public Double getRate() {return faker.number().randomDouble(1,1,5);}
-
-
 
 }
