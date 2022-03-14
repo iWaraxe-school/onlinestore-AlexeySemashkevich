@@ -6,10 +6,10 @@ import java.util.List;
 public class Category {
 
     private String categoryName;
-    private List<Product> productList = new ArrayList<Product>();
+    private List<Product> productList = new ArrayList<>();
 
-    protected Category(String categoryName) {
-        this.categoryName = null;
+    public Category(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public void addProductToCategory(Product product){
@@ -20,10 +20,8 @@ public class Category {
         System.out.println("Category: " + categoryName);
         System.out.println("______________________________________________________________");
         for (Product product: productList){
-            product.toString();}
+            System.out.println(product.toString());}
         System.out.println("______________________________________________________________");
-        System.out.println("");
-    }
-
+        System.out.println("");}
 
 }

@@ -14,4 +14,8 @@ public class Store {
         }
     }
 
+    public void addCategoryToList(Category category) {
+        categoryList.add(category);
+    }
+
 }

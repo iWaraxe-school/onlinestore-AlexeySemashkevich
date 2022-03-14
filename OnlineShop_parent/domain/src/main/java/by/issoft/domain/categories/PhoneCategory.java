@@ -4,7 +4,7 @@ import by.issoft.domain.Category;
 
 public class PhoneCategory extends Category {
 
-    public PhoneCategory(String categoryName) {
+    public PhoneCategory() {
         super( "Phone");
     }
 }

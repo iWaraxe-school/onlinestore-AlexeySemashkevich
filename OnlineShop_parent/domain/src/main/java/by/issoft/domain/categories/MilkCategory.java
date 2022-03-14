@@ -4,7 +4,7 @@ import by.issoft.domain.Category;
 
 public class MilkCategory extends Category {
 
-    public MilkCategory(String categoryName) {
+    public MilkCategory() {
         super("Milk");
     }
 }

@@ -4,18 +4,18 @@ package by.issoft.domain;
 public class Product {
 
     private String name;
-    private double rate;
     private double price;
+    private double rate;
 
-    public Product(String name, double rate, double price) {
+    public Product(String name, double price, double rate) {
         this.name = name;
-        this.rate = rate;
         this.price = price;
+        this.rate = rate;
     }
 
     public String toString() {
-        String prodInfo = new String();
-        prodInfo = String.format("Name: '%s', Rate: %s Price: %s $",name,rate,price );
+        String prodInfo;
+        prodInfo = String.format("Name: '%-15s', Price: %s$, Rate: %s ",name,price,rate);
         return prodInfo;
     }
 

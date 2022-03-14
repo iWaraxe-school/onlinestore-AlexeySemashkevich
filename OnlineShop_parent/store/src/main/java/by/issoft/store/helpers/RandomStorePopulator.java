@@ -9,17 +9,17 @@ public class RandomStorePopulator {
     public RandomStorePopulator() {}
 
     public String getProductName(String valueOf) {
-        switch (getClass().getSimpleName()) {
+        switch (valueOf) {
             case "BikeCategory":
                 return faker.aviation().aircraft();
             case "PhoneCategory" :
-                return faker.company().name();
+                return faker.funnyName().name();
             case "MilkCategory" :
-                return faker.beer().name();
+                return faker.artist().name();
             default: return null;
         }
     }
     public Double getPrice() {return faker.number().randomDouble(2,1,10_000);}
-    public Double getRate() {return faker.number().randomDouble(1,1,5);}
+    public Double getRate() {return faker.number().randomDouble(2,1,5);}
 
 }
