@@ -15,7 +15,7 @@ public class Product {
 
     public String toString() {
         String prodInfo;
-        prodInfo = String.format("Name: %-30s Price: %7s$ Rate: %-4s ",name,price,rate);
+        prodInfo = String.format("Name: %-30s Price: %7s$    Rate: %-4s ",name,price,rate);
         return prodInfo;
     }
 

@@ -17,12 +17,12 @@ public class Category {
     }
 
     public void printAllProducts(){
-        System.out.println("################################################################");
+        System.out.println("###################################################################");
         System.out.println("Category: " + categoryName);
-        System.out.println("________________________________________________________________");
+        System.out.println("___________________________________________________________________");
         for (Product product: productList){
             System.out.println(product.toString());}
-        System.out.println("________________________________________________________________");
+        System.out.println("___________________________________________________________________");
         System.out.println("");;}
 
 }
