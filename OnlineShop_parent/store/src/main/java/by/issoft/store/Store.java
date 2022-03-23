@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 public class Store {
 
     private List<Category> categoryList = new ArrayList<Category>();
-    private Map<Product,Category> ProductMap = new LinkedHashMap<>();
+    private Map<Product,Category> ProductMap = new HashMap<>();
 
     public void printAllCategoriesAndProducts(){
         categoryList.forEach(Category::printAllProducts);
