@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sort>
+    <sortBy field ="Name" order="asc"/>
+    <sortBy field ="Price" order="asc"/>
+    <sortBy field ="Rate" order="desc"/>
+</sort>
