@@ -15,8 +15,7 @@ import java.util.*;
 import java.util.stream.IntStream;
 
 public class XmlReader {
-
-   private List<SortConfig> sortOrderList= new LinkedList<>();
+    private List<SortConfig> sortOrderList = new ArrayList<>();
 
 
     public List<SortConfig> getSortOrderList() {
@@ -32,9 +31,7 @@ public class XmlReader {
         IntStream.range(0, bound).filter(i -> nodeList.item(i)
                 .getNodeType() == Node.ELEMENT_NODE)
                 .forEach(i -> {
-            String filedName = nodeList.item(i).getNodeName();
-            String sortOrder = nodeList.item(i).getTextContent().toUpperCase();
-            SortConfig sortConfig = new SortConfig(filedName, sortOrder);
+            SortConfig sortConfig = new SortConfig(nodeList.item(i).getNodeName(), nodeList.item(i).getTextContent().toUpperCase());
             sortOrderList.add(sortConfig);
         });
     } catch (FileNotFoundException e) {
