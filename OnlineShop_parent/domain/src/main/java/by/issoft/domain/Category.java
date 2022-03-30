@@ -2,6 +2,7 @@ package by.issoft.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class Category {
 
@@ -15,14 +16,17 @@ public class Category {
     public void addProductToCategory(Product product){
         productList.add(product);
     }
+//
+//    public Stream<Product> productStream() {
+//       return productList.stream();
+//    }
 
     public void printAllProducts(){
         System.out.println("###################################################################");
         System.out.println("Category: " + categoryName);
         System.out.println("___________________________________________________________________");
-        for (Product product: productList){
-            System.out.println(product.toString());}
+        productList.stream().map(Product::toString).forEach(System.out::println);
         System.out.println("___________________________________________________________________");
-        System.out.println("");;}
+        System.out.println("");}
 
 }

@@ -2,3 +2,4 @@
 *.iml
 target/
 
+/OnlineShop_parent/consoleApp/src/main/java/by/issoft/consoleApp/Stream.java

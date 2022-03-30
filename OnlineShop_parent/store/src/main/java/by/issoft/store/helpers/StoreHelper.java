@@ -22,7 +22,7 @@ public class StoreHelper {
         for (Class<?> type : subTypes) {
             try {
                 Random random = new Random();
-                categoryProductMap.put((Category) type.getDeclaredConstructor().newInstance(), random.nextInt(10)+1);
+                categoryProductMap.put((Category) type.getDeclaredConstructor().newInstance(), random.nextInt(5,10));
             } catch (InvocationTargetException e) {
                 e.printStackTrace();
             } catch (InstantiationException e) {
@@ -39,6 +39,7 @@ public class StoreHelper {
     public void fillStore() {
         RandomStorePopulator populator = new RandomStorePopulator();
         Map<Category, Integer> categoryProductMapToAdd = createProductListToAdd();
+//        Map<Product, Category> sortedProductMap = new LinkedHashMap<>();
         for (Map.Entry<Category, Integer> entry : categoryProductMapToAdd.entrySet()) {
             store.addCategoryToList(entry.getKey());
 
@@ -48,8 +49,9 @@ public class StoreHelper {
                         populator.getPrice(),
                         populator.getRate());
                 entry.getKey().addProductToCategory(product);
-
+                store.mapPutter(product,entry.getKey());
             }
         }
     }
+
 }

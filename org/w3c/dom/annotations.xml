@@ -1,0 +1,7 @@
+<root>
+    <item name='org.w3c.dom.Node org.w3c.dom.NamedNodeMap getAttributes()'>
+        <annotation name='org.jetbrains.annotations.Contract'>
+            <val name="pure" val="true"/>
+        </annotation>
+    </item>
+</root>
