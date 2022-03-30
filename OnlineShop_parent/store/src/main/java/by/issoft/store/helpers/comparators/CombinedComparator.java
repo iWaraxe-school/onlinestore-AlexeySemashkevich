@@ -1,33 +1,59 @@
 package by.issoft.store.helpers.comparators;
 
 import by.issoft.domain.Product;
+import org.apache.commons.lang3.builder.CompareToBuilder;
 
-import java.util.Comparator;
+import java.lang.reflect.Field;
+import java.util.*;
+
+
+
 
 public class CombinedComparator implements Comparator<Product> {
-    private String fieldName;
-    private SortOrder sortOrder;
 
-    public CombinedComparator(String fieldName, SortOrder sortOrder) {
-    }
+//    private Map<String, String> sortBy;
+
+//    public CombinedComparator(Map sortBy){
+//        this.sortBy = sortBy;
+//    }
 
     XmlReader xmlReader = new XmlReader();
 
-    public Comparator<Product> combined = xmlReader.getSortOrderList()
-            .stream()
-            .map(sortConfig -> new CombinedComparator(sortConfig.getFieldName(), sortConfig.getSortOrder()))
-            .reduce(null, (combinedSoFar, nextComparator) ->
-                    (combinedSoFar == null) ? nextComparator : (CombinedComparator) combinedSoFar.thenComparing(nextComparator));
-
     public CombinedComparator() {
-
     }
 
-
     @Override
-    public int compare(Product o1, Product o2) {
-        Comparator<Product> comparator = combined;
-        if (sortOrder == SortOrder.DESC) comparator = comparator.reversed();
-        return comparator.compare(o1, o2);    }
+    public int compare(Product a, Product b) {
+        CompareToBuilder compareBuilder = new CompareToBuilder();
+        for (SortConfig item : xmlReader.getSortOrderList()) {
+            SortOrder sortOrder = (item.getSortOrder());
+            try {
+                if (sortOrder == SortOrder.ASC) {
+                    compareBuilder.append(this.getPropertyValue(a, item.getFieldName()), this.getPropertyValue(b, item.getFieldName()));
+                } else {
+                    compareBuilder.append(this.getPropertyValue(b, item.getFieldName()), this.getPropertyValue(a, item.getFieldName()));
+                }
+            } catch (Exception e) {
+                System.out.println("Error: Products were not compared. An exception was thrown with the message: " + e.getMessage());
+                return 0;
+            }
+        }
 
+        return compareBuilder.toComparison();
+    }
+
+    private String getPropertyValue(Product product, String property) throws Exception {
+        try {
+            Field field = product.getClass().getDeclaredField(property);
+            field.setAccessible(true);
+            return String.valueOf(field.get(product));
+        } catch (NoSuchFieldException | IllegalAccessException ex) {
+            throw new Exception(ex);
+        }
+    }
 }
+
+
+
+
+

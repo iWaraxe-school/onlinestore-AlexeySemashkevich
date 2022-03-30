@@ -12,8 +12,7 @@ public class StoreApp {
 
         storeHelper.fillStore();
         onlineStore.printAllCategoriesAndProducts();
-//        onlineStore.printMap();
-
+        onlineStore.printSortedByXmlProductList();
 
 
 

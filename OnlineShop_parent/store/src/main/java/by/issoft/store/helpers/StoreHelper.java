@@ -39,7 +39,6 @@ public class StoreHelper {
     public void fillStore() {
         RandomStorePopulator populator = new RandomStorePopulator();
         Map<Category, Integer> categoryProductMapToAdd = createProductListToAdd();
-//        Map<Product, Category> sortedProductMap = new LinkedHashMap<>();
         for (Map.Entry<Category, Integer> entry : categoryProductMapToAdd.entrySet()) {
             store.addCategoryToList(entry.getKey());
 

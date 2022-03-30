@@ -5,16 +5,14 @@ import by.issoft.domain.Product;
 import by.issoft.store.helpers.comparators.CombinedComparator;
 
 import java.util.*;
-import java.util.stream.Stream;
 
 public class Store {
 
     private List<Category> categoryList = new ArrayList<Category>();
-    private Map<Product,Category> ProductMap = new LinkedHashMap<>();
+    private Map<Product,Category> productMap = new TreeMap<>(new CombinedComparator(){});
 
     public void printAllCategoriesAndProducts(){
         categoryList.forEach(Category::printAllProducts);
-
     }
 
     public void addCategoryToList(Category category) {
@@ -22,26 +20,18 @@ public class Store {
     }
 
     public void mapPutter(Product product, Category category){
-        ProductMap.put(product,category);
+        productMap.put(product,category);
     }
 
-//    public Map<Product, Category> getSortedProductMap() {
-//        CombinedComparator combinedComparator = new CombinedComparator();
-//        ProductMap.entrySet().stream()
-//                .sorted(combinedComparator.combined)
-//                .map(sortedProductMap)
-//        return sortedProductMap;
-//    }
-//
-//        public void printMap(){
-//
-//        System.out.println(ProductMap);
-//    }
-
-
-
-
-
+    public void printSortedByXmlProductList(){
+            System.out.println("*******************************************************************");
+            System.out.println("Sorted products via xml: ");
+            System.out.println("___________________________________________________________________");
+            productMap.keySet().forEach(System.out::println);
+            System.out.println("___________________________________________________________________");
+    }
+    
 
 
 }
+
