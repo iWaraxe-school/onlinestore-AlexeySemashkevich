@@ -19,23 +19,25 @@ public class StoreApp {
         System.out.println(str);
         String input;
         input = userInput.next().toLowerCase();
-        while(true) {
-            if (input.equals("sort")) {
+        while(true) switch (input) {
+            case "sort":
                 onlineStore.printSortedByXmlProductList();
                 System.out.println(str);
                 input = userInput.next().toLowerCase();
-            } else if (input.equals("top5")) {
+                break;
+            case "top5":
                 onlineStore.printTopPricedList();
                 System.out.println(str);
                 input = userInput.next().toLowerCase();
-            } else if (input.equals("quit")) {
+                break;
+            case "quit":
                 System.out.println("Come again to our shop");
                 System.exit(1);
-            } else {
+            default:
                 System.out.println("Wrong command try again.");
                 System.out.println(str);
                 input = userInput.next().toLowerCase();
-            }
+                break;
         }
     }
 }
