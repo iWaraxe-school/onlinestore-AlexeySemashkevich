@@ -49,6 +49,7 @@ public class StoreHelper {
                         populator.getRate());
                 entry.getKey().addProductToCategory(product);
                 store.mapPutter(product,entry.getKey());
+                store.setTopPricedList(product);
             }
         }
     }

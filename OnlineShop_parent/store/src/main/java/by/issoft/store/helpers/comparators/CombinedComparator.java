@@ -2,20 +2,10 @@ package by.issoft.store.helpers.comparators;
 
 import by.issoft.domain.Product;
 import org.apache.commons.lang3.builder.CompareToBuilder;
-
 import java.lang.reflect.Field;
 import java.util.*;
 
-
-
-
 public class CombinedComparator implements Comparator<Product> {
-
-//    private Map<String, String> sortBy;
-
-//    public CombinedComparator(Map sortBy){
-//        this.sortBy = sortBy;
-//    }
 
     XmlReader xmlReader = new XmlReader();
 
@@ -42,11 +32,11 @@ public class CombinedComparator implements Comparator<Product> {
         return compareBuilder.toComparison();
     }
 
-    private String getPropertyValue(Product product, String property) throws Exception {
+    protected String getPropertyValue(Product product, String property) throws Exception {
         try {
             Field field = product.getClass().getDeclaredField(property);
             field.setAccessible(true);
-            return String.valueOf(field.get(product));
+            return java.lang.String.valueOf(field.get(product));
         } catch (NoSuchFieldException | IllegalAccessException ex) {
             throw new Exception(ex);
         }
