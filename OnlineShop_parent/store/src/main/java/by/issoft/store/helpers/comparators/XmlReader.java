@@ -17,6 +17,22 @@ import java.util.stream.IntStream;
 public class XmlReader {
     private List<SortConfig> sortOrderList = new ArrayList<>();
 
+    private XmlReader() {    }
+
+    private static volatile XmlReader instance;
+
+    public static XmlReader getInstance() {
+        XmlReader localInstance = instance;
+        if (localInstance == null) {
+            synchronized (XmlReader.class) {
+                localInstance = instance;
+                if (localInstance == null) {
+                    instance = localInstance = new XmlReader();
+                }
+            }
+        }
+        return localInstance;
+    }
 
     public List<SortConfig> getSortOrderList() {
     try {
@@ -44,13 +60,6 @@ public class XmlReader {
         e.printStackTrace();
     }
     return  sortOrderList;}
-
-
-
-
-
-
-
 
 }
 

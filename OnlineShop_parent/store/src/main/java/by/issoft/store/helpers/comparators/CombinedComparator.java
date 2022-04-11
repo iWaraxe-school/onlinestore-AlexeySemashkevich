@@ -7,7 +7,7 @@ import java.util.*;
 
 public class CombinedComparator implements Comparator<Product> {
 
-    XmlReader xmlReader = new XmlReader();
+    XmlReader xmlReader = XmlReader.getInstance();
 
     public CombinedComparator() {
     }
