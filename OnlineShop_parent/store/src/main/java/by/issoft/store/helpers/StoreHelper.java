@@ -11,7 +11,21 @@ import java.util.*;
 public class StoreHelper {
    private Store store;
 
-    public StoreHelper(Store store) {this.store = store;}
+    private StoreHelper(Store store) {this.store = store;}
+
+    private static volatile StoreHelper instance;
+    public static StoreHelper getInstance() {
+        StoreHelper localInstance = instance;
+        if (localInstance == null) {
+            synchronized (StoreHelper.class) {
+                localInstance = instance;
+                if (localInstance == null) {
+                    instance = localInstance = new StoreHelper(Store.getInstance());
+                }
+            }
+        }
+        return localInstance;
+    }
 
     private Map<Category,Integer> createProductListToAdd(){
         Map<Category, Integer> categoryProductMap = new HashMap<>();
@@ -22,10 +36,9 @@ public class StoreHelper {
         for (Class<?> type : subTypes) {
             try {
                 Random random = new Random();
-                categoryProductMap.put((Category) type.getDeclaredConstructor().newInstance(), random.nextInt(10)+1);
+                Category result = (Category) type.getDeclaredMethod("getInstance").invoke(new Object());
+                categoryProductMap.put(result, random.nextInt(5,10));
             } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            } catch (InstantiationException e) {
                 e.printStackTrace();
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
@@ -48,8 +61,10 @@ public class StoreHelper {
                         populator.getPrice(),
                         populator.getRate());
                 entry.getKey().addProductToCategory(product);
-
+                store.mapPutter(product,entry.getKey());
+                store.setTopPricedList(product);
             }
         }
     }
+
 }

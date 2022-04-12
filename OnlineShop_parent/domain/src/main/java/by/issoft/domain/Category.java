@@ -8,9 +8,7 @@ public class Category {
     private String categoryName;
     private List<Product> productList = new ArrayList<>();
 
-    public Category(String categoryName) {
-        this.categoryName = categoryName;
-    }
+    protected Category(String categoryName) { this.categoryName = categoryName; }
 
     public void addProductToCategory(Product product){
         productList.add(product);
@@ -20,9 +18,8 @@ public class Category {
         System.out.println("###################################################################");
         System.out.println("Category: " + categoryName);
         System.out.println("___________________________________________________________________");
-        for (Product product: productList){
-            System.out.println(product.toString());}
-        System.out.println("___________________________________________________________________");
-        System.out.println("");;}
+        productList.stream().map(Product::toString).forEach(System.out::println);
+        System.out.println("___________________________________________________________________\n\n");
+    }
 
 }
