@@ -2,7 +2,9 @@ package by.issoft.store.helpers;
 
 import by.issoft.store.Store;
 
-public class OrderedProductsListCleaner implements Runnable{
+import java.util.TimerTask;
+
+public class OrderedProductsListCleaner extends TimerTask {
     @Override
     public void run() {
         Store store = Store.getInstance();

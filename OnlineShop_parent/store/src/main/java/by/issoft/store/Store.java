@@ -1,16 +1,15 @@
-
 package by.issoft.store;
 
 
 
 import by.issoft.domain.Category;
 import by.issoft.domain.Product;
-import by.issoft.store.helpers.OrderedProductsListCleaner;
 import by.issoft.store.helpers.comparators.CombinedComparator;
 import by.issoft.store.helpers.comparators.TopPricedComparator;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentSkipListMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class Store implements Runnable {
@@ -34,7 +33,7 @@ public class Store implements Runnable {
     private List<Category> categoryList = new ArrayList<Category>();
     private ConcurrentSkipListMap<Product, Category> productMap = new ConcurrentSkipListMap<>(new CombinedComparator());
     private Set<Product> topPricedList = new TreeSet<>(new TopPricedComparator());
-    private List<Product> orderedProducts = new ArrayList<>();
+    private CopyOnWriteArrayList<Product> orderedProducts = new CopyOnWriteArrayList<>();
 
 
     public void printAllCategoriesAndProducts() throws InterruptedException {
@@ -72,18 +71,10 @@ public class Store implements Runnable {
     public void run() {
         getOrderedProducts();
         printOrderedProducts();
-        try {
-            TimeUnit.MINUTES.sleep(2);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        new Thread(new OrderedProductsListCleaner()).start();
-
-
     }
 
 
-    public List<Product> getOrderedProducts() {
+    private CopyOnWriteArrayList<Product> getOrderedProducts() {
         Random random = new Random();
         List<Product> targetList = new ArrayList<>(productMap.keySet());
         int limit = productMap.keySet().size();

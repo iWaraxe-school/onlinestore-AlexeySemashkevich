@@ -7,6 +7,7 @@ import by.issoft.store.helpers.OrderedProductsListCleaner;
 import by.issoft.store.helpers.StoreHelper;
 
 import java.util.Scanner;
+import java.util.Timer;
 import java.util.concurrent.TimeUnit;
 
 public class StoreApp {
@@ -15,6 +16,11 @@ public class StoreApp {
         Scanner userInput = new Scanner(System.in);
         Store onlineStore = Store.getInstance();
         StoreHelper storeHelper = StoreHelper.getInstance();
+
+        OrderedProductsListCleaner orderedProductsListCleaner = new OrderedProductsListCleaner();
+        Timer timer = new Timer();
+        timer.schedule(orderedProductsListCleaner,0,120_000);
+
 
         new Thread(storeHelper).start();
         TimeUnit.MILLISECONDS.sleep(500);
