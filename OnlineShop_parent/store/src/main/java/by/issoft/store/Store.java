@@ -1,13 +1,19 @@
+
 package by.issoft.store;
+
+
 
 import by.issoft.domain.Category;
 import by.issoft.domain.Product;
+import by.issoft.store.helpers.OrderedProductsListCleaner;
 import by.issoft.store.helpers.comparators.CombinedComparator;
 import by.issoft.store.helpers.comparators.TopPricedComparator;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentSkipListMap;
+import java.util.concurrent.TimeUnit;
 
-public class Store {
+public class Store implements Runnable {
     private static volatile Store instance;
 
     public static Store getInstance() {
@@ -26,10 +32,13 @@ public class Store {
     private Store() {}
 
     private List<Category> categoryList = new ArrayList<Category>();
-    private Map<Product,Category> productMap = new TreeMap<>(new CombinedComparator());
+    private ConcurrentSkipListMap<Product, Category> productMap = new ConcurrentSkipListMap<>(new CombinedComparator());
     private Set<Product> topPricedList = new TreeSet<>(new TopPricedComparator());
+    private List<Product> orderedProducts = new ArrayList<>();
 
-    public void printAllCategoriesAndProducts(){
+
+    public void printAllCategoriesAndProducts() throws InterruptedException {
+        TimeUnit.MILLISECONDS.sleep(500);
         categoryList.forEach(Category::printAllProducts);
     }
 
@@ -42,13 +51,13 @@ public class Store {
     }
 
     public void printSortedByXmlProductList(){
-            System.out.println("*******************************************************************");
-            System.out.println("Sorted products via xml: ");
-            System.out.println("___________________________________________________________________");
-            productMap.keySet().forEach(System.out::println);
-            System.out.println("___________________________________________________________________\n");
+        System.out.println("*******************************************************************");
+        System.out.println("Sorted products via xml: ");
+        System.out.println("___________________________________________________________________");
+        productMap.keySet().forEach(System.out::println);
+        System.out.println("___________________________________________________________________\n");
     }
-    
+
     public void setTopPricedList(Product product){ topPricedList.add(product); }
 
     public void printTopPricedList(){
@@ -59,5 +68,43 @@ public class Store {
         System.out.println("___________________________________________________________________\n");
     }
 
-}
+    @Override
+    public void run() {
+        getOrderedProducts();
+        printOrderedProducts();
+        try {
+            TimeUnit.MINUTES.sleep(2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        new Thread(new OrderedProductsListCleaner()).start();
 
+
+    }
+
+
+    public List<Product> getOrderedProducts() {
+        Random random = new Random();
+        List<Product> targetList = new ArrayList<>(productMap.keySet());
+        int limit = productMap.keySet().size();
+        int randomInt = random.nextInt(1,limit);
+        for(int j = 0; j < randomInt; j++ ){
+            orderedProducts.add(targetList.get(random.nextInt(0,limit)));
+        }
+        return orderedProducts;
+    }
+
+    public void printOrderedProducts(){
+        System.out.println("*******************************************************************");
+        System.out.println("You have ordered following products: ");
+        System.out.println("___________________________________________________________________");
+        orderedProducts.forEach(System.out::println);
+        System.out.println("___________________________________________________________________\n");
+
+    }
+
+    public void cleanUpOrderList (){
+        orderedProducts.clear();
+    }
+
+}
