@@ -8,8 +8,8 @@ import org.reflections.scanners.Scanners;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
-public class StoreHelper {
-   private Store store;
+public class StoreHelper implements Runnable{
+    private Store store;
 
     private StoreHelper(Store store) {this.store = store;}
 
@@ -67,4 +67,9 @@ public class StoreHelper {
         }
     }
 
+    @Override
+    public void run() {
+        createProductListToAdd();
+        fillStore();
+    }
 }
