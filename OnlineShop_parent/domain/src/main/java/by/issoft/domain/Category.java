@@ -21,5 +21,4 @@ public class Category {
         productList.stream().map(Product::toString).forEach(System.out::println);
         System.out.println("___________________________________________________________________\n\n");
     }
-
 }

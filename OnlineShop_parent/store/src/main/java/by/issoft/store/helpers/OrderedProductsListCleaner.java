@@ -9,6 +9,8 @@ public class OrderedProductsListCleaner extends TimerTask {
     public void run() {
         Store store = Store.getInstance();
         store.cleanUpOrderList();
+        StoreHelperDB storeHelperDB = StoreHelperDB.getInstance();
+        storeHelperDB.cleanUpOrderList();
         System.out.println("Order list is cleared\n");
 
     }

@@ -48,13 +48,7 @@ public class XmlReader extends Thread {
                         SortConfig sortConfig = new SortConfig(nodeList.item(i).getNodeName(), nodeList.item(i).getTextContent().toUpperCase());
                         sortOrderList.add(sortConfig);
                     });
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
+        } catch (IOException | ParserConfigurationException | SAXException e) {
             e.printStackTrace();
         }
         return  sortOrderList;}

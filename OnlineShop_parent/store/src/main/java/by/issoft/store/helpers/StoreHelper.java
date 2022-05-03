@@ -8,7 +8,7 @@ import org.reflections.scanners.Scanners;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
-public class StoreHelper implements Runnable{
+public class StoreHelper implements Runnable, StoreHelperPopulator{
     private Store store;
 
     private StoreHelper(Store store) {this.store = store;}
@@ -27,7 +27,7 @@ public class StoreHelper implements Runnable{
         return localInstance;
     }
 
-    private Map<Category,Integer> createProductListToAdd(){
+    private Map<Category,Integer> createCategoriesMap(){
         Map<Category, Integer> categoryProductMap = new HashMap<>();
         Reflections reflections = new Reflections("by.issoft.domain.categories");
 
@@ -38,11 +38,7 @@ public class StoreHelper implements Runnable{
                 Random random = new Random();
                 Category result = (Category) type.getDeclaredMethod("getInstance").invoke(new Object());
                 categoryProductMap.put(result, random.nextInt(5,10));
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (NoSuchMethodException e) {
+            } catch (InvocationTargetException | IllegalAccessException | NoSuchMethodException e) {
                 e.printStackTrace();
             }
         }
@@ -51,7 +47,7 @@ public class StoreHelper implements Runnable{
 
     public void fillStore() {
         RandomStorePopulator populator = new RandomStorePopulator();
-        Map<Category, Integer> categoryProductMapToAdd = createProductListToAdd();
+        Map<Category, Integer> categoryProductMapToAdd = createCategoriesMap();
         for (Map.Entry<Category, Integer> entry : categoryProductMapToAdd.entrySet()) {
             store.addCategoryToList(entry.getKey());
 
@@ -69,7 +65,7 @@ public class StoreHelper implements Runnable{
 
     @Override
     public void run() {
-        createProductListToAdd();
+        createCategoriesMap();
         fillStore();
     }
 }
