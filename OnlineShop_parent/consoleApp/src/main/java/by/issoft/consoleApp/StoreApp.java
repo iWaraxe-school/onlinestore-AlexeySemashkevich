@@ -5,6 +5,8 @@ package by.issoft.consoleApp;
 import by.issoft.store.Store;
 import by.issoft.store.helpers.OrderedProductsListCleaner;
 import by.issoft.store.helpers.StoreHelper;
+import by.issoft.store.helpers.StoreHelperDB;
+import by.issoft.store.helpers.dbconnector.DBConnector;
 
 import java.util.Scanner;
 import java.util.Timer;
@@ -16,16 +18,21 @@ public class StoreApp {
         Scanner userInput = new Scanner(System.in);
         Store onlineStore = Store.getInstance();
         StoreHelper storeHelper = StoreHelper.getInstance();
+        DBConnector dbConnector = DBConnector.getInstance();
+        StoreHelperDB storeHelperDB = StoreHelperDB.getInstance();
 
         OrderedProductsListCleaner orderedProductsListCleaner = new OrderedProductsListCleaner();
         Timer timer = new Timer();
         timer.schedule(orderedProductsListCleaner,0,120_000);
 
-
-        new Thread(storeHelper).start();
+        new Thread(dbConnector).start();
+//        new Thread(storeHelper).start();
         TimeUnit.MILLISECONDS.sleep(500);
-        System.out.println("Welcome to our store." + "\n" + "We have following products: " );
-        onlineStore.printAllCategoriesAndProducts();
+        storeHelperDB.fillStore();
+        TimeUnit.MILLISECONDS.sleep(500);
+        System.out.println("\n" + "Welcome to our store." + "\n" + "We have following products: " );
+//        onlineStore.printAllCategoriesAndProducts();
+        storeHelperDB.printAllProductsFromDB();
         String str = "To sort all products please input 'sort' and press Enter\n" +
                 "To show top 5 high-priced products input 'top5' and press Enter\n" +
                 "To order random products input 'order' and press Enter\n"+
@@ -36,17 +43,20 @@ public class StoreApp {
         while(true) {
             switch (input) {
                 case "sort":
-                    onlineStore.printSortedByXmlProductList();
+//                    onlineStore.printSortedByXmlProductList();
+                    storeHelperDB.printSortedProductList();
                     break;
                 case "top5":
-                    onlineStore.printTopPricedList();
+//                    onlineStore.printTopPricedList();
+                    storeHelperDB.top5PricedProducts();
                     break;
                 case "quit":
                     System.out.println("Come again to our shop");
                     System.exit(1);
                 case "order":
                     System.out.println("Order is created\n");
-                    new Thread(onlineStore).start();
+//                    new Thread(onlineStore).start();
+                    storeHelperDB.printOrderedProducts();
                     break;
                 default:
                     System.out.println("Wrong command try again.\n");
