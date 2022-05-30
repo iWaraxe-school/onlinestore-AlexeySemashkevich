@@ -2,17 +2,21 @@ package by.issoft.consoleApp;
 
 
 
+import by.issoft.domain.Category;
 import by.issoft.store.Store;
 import by.issoft.store.helpers.OrderedProductsListCleaner;
 import by.issoft.store.helpers.StoreHelper;
 import by.issoft.store.helpers.StoreHelperDB;
+import by.issoft.store.helpers.StoreHelperHttp;
 import by.issoft.store.helpers.dbconnector.DBConnector;
+import lombok.SneakyThrows;
 
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.concurrent.TimeUnit;
 
 public class StoreApp {
+    @SneakyThrows
     public static void main(String[] args) throws InterruptedException {
 
         Scanner userInput = new Scanner(System.in);
@@ -20,6 +24,7 @@ public class StoreApp {
         StoreHelper storeHelper = StoreHelper.getInstance();
         DBConnector dbConnector = DBConnector.getInstance();
         StoreHelperDB storeHelperDB = StoreHelperDB.getInstance();
+        StoreHelperHttp storeHelperHttp = new StoreHelperHttp();
 
         OrderedProductsListCleaner orderedProductsListCleaner = new OrderedProductsListCleaner();
         Timer timer = new Timer();
@@ -29,6 +34,13 @@ public class StoreApp {
 //        new Thread(storeHelper).start();
         TimeUnit.MILLISECONDS.sleep(500);
         storeHelperDB.fillStore();
+
+        storeHelperHttp.HttpPopulator();
+        storeHelperHttp.fillStore();
+        storeHelperHttp.getCategories();
+        storeHelperHttp.getProductsForCategory();
+//        storeHelperHttp.getProductsFromCart();
+
         TimeUnit.MILLISECONDS.sleep(500);
         System.out.println("\n" + "Welcome to our store." + "\n" + "We have following products: " );
 //        onlineStore.printAllCategoriesAndProducts();

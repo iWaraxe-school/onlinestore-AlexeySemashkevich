@@ -4,6 +4,10 @@ import by.issoft.domain.Category;
 
 public class PhoneCategory extends Category {
 
+    @Override
+    public String getCategoryName() {
+        return super.getCategoryName();
+    }
     private PhoneCategory() {
         super( "Phone");
     }

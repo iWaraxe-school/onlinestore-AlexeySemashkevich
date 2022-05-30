@@ -2,9 +2,18 @@ package by.issoft.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@NoArgsConstructor
+
 
 public class Category {
 
+    @Getter
+    @Setter
     private String categoryName;
     private List<Product> productList = new ArrayList<>();
 
@@ -12,6 +21,13 @@ public class Category {
 
     public void addProductToCategory(Product product){
         productList.add(product);
+    }
+
+    public void addProducts(List<Product> products) {
+        if (productList == null) {
+            productList = new ArrayList<>();
+        }
+        productList.addAll(products);
     }
 
     public void printAllProducts(){

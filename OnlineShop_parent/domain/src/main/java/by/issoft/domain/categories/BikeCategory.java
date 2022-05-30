@@ -4,6 +4,10 @@ import by.issoft.domain.Category;
 
 public class BikeCategory extends Category {
 
+    @Override
+    public String getCategoryName() {
+        return super.getCategoryName();
+    }
     private BikeCategory() {
         super("Bike");
     }

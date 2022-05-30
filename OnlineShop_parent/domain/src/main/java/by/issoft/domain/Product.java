@@ -1,6 +1,8 @@
 package by.issoft.domain;
 
+import lombok.Getter;
 
+@Getter
 public class Product {
 
     private String name;
